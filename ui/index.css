@@ -1,0 +1,30 @@
+.row {
+    padding: 10px;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+    }
+
+.table-wrapper-scroll-y {
+    display: block;
+ }
+
+ h3 {
+     text-align: center;
+     font-weight: 600;
+     color: #1e241f
+
+ }
+
+ .removeSection {
+     background-color: #F3f3f3;
+ }
+
+ .container-fluid {
+     padding-left: 90px;
+     padding-right: 90px;
+     padding-top: 5px;
+ }

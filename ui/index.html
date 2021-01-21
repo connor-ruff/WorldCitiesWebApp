@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<!-- Metadata for the Webpage -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Title</title>
+
+<!-- Bootstrap CSS files-->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Font Awesome Web Icons -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="./index.css">
+
+</head>
+<body onload="loadAllCities()">
+
+<!-- Navbar -->
+<nav class="navbar container-fluid navbar-default" style="padding: 5px">
+	<div class="container">
+	  <div class="navbar-header"><button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
+		<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+			<a class="navbar-brand" href="#">Links</a>
+	</div>
+
+	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+		<ul class="nav navbar-nav navbar-right">
+		  <li><a href="https://www.kaggle.com/max-mind/world-cities-database" target="_blank">Data Source</a></li>
+		  <li><a href="https://www.movable-type.co.uk/scripts/latlong.html" target="_blank">Calculation Process</a></li>
+		</ul>
+	  </div>
+	</div>
+</nav>
+
+<!-- This is where your body content goes... -->
+
+
+<div class="container-fluid">
+
+	<div class='jumbotron' style='background-size: cover; height: 500px; background-position: top center; background: url("https://www.mastercard.us/content/dam/public/mastercardcom/na/us/en/public-sector/images/tokyo-skyline-at-night-2-1300x650.jpg");'><h1 style='color:white; padding-top: 50px' class='jumbotronic'>World Cities</h1><h6 style='color: white;'>Fun With Geography</h6></div>
+
+	<!-- Search Button (by name) -->
+	<div class="row" id="aboveTableButtons">
+
+		<div class="col-md-5">
+			<div class="form-inline">
+				<input type="text" class="form-control" id="citySearchEntry" placeholder="Search City By Name...">
+				<button class="btn btn-primary" onclick="searchByName()">Search!</button>
+		  	</div>
+		</div>
+
+		<div class="col-md-5">
+			<div class="form-inline">
+				<input type="text" class="form-control" id="countrySearchEntry" placeholder="Search By Country...">
+				<button class="btn btn-primary" onclick="searchByCountry()">Search!</button>
+		  	</div>
+		</div>
+
+		<div class="col-md-2">
+			<div class="form-inline">
+				<button id="resetButton" class="btn btn-primary" onclick="resetTable()">Reset All Cities</button>
+		  	</div>
+		</div>
+
+	</div>
+
+	<!-- Table -->
+
+
+	<div class="row" id="cityTable">
+
+		<div class="table-wrapper-scroll-y my-custom-scrollbar">
+		<table class='table table-bordered table-striped mb-0'>
+			<caption>Cities -- (Scroll Me!)</caption>
+			<thead>
+				<tr>
+					<th style='width: %;'>City Name</th>
+					<th style='width: %;'>Country</th>
+					<th style='width: %;'>Latitude</th>
+					<th style='width: %;'>Longitude</th>
+					<th style='width: %;'>City ID</th>
+				</tr>
+			</thead>
+			<tbody id="fullTableBody">
+
+			</tbody>
+		</table>
+		</div>
+
+	</div>
+
+
+
+<!-- END of Initial Table -->
+
+
+	<div id="AddRemoveHeaderRow" class="row">
+		<div class="col-md-9">
+		<h3>Add A City</h3>
+		</div>
+		<div class="col-md-3">
+
+				<h3>Remove A City</h3>
+
+		</div>
+	</div>
+
+	<div class="row">
+
+			<div class="col-md-3">
+				<input id="addCityCity" type="text" name="city" class="form-control" placeholder="City Name..."><br>
+				<input  id="addCityCountry" type="text" name="country" class="form-control" placeholder="Country Name...">
+			</div>
+			<div class="col-md-3">
+				<input  id="addCityLat" type="text" name="lat" class="form-control" placeholder="Latitude..."><br>
+				<input  id="addCityLon" type="text" name="lon" class="form-control" placeholder="Longitude...">
+			</div>
+			<div class="col-md-3">
+				<button id="resetButton" type="button" style="width:100px;height:50px;" class="btn btn-success" onclick="addCity()">Add It!</button><br>
+				<label id="addConf"></label>
+			</div>
+
+
+		<div class="col-md-3">
+
+				<input id="removeCityInput" type="text" class="form-control input-sm" placeholder="City ID..."><br>
+				<button id="removeButton" type="button"  class="btn btn-warning" onclick="removeCity()">Remove</button>
+				<label id="removeConf"></label>
+
+		</div>
+
+	</div>
+
+	<!-- Calculate Distance Section-->
+
+	<div class="row">
+		<div class='jumbotron' style='background-size: cover; height: 225px ; background-position: top center; background: url("http://3.bp.blogspot.com/-jvh7erorE2w/VpOfbt6Q5ZI/AAAAAAAAtnw/emL2_yDX78s/s523/mapsmania.gif");'><h1 style='color:brown; padding-top: 90px' class='jumbotronic'>Distance Calculator</h1></div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-2">
+			<input type="text" class="form-control" id="cityID1Entry" placeholder="ID of City 1..."><br>
+			<input type="text" class="form-control" id="cityID2Entry" placeholder="ID of City 2...">
+		</div>
+		<div class="col-md-3">
+			<button id="submitDistanceButton" type="button"  class="btn btn-success" style="height: 80px; width: 100px" onclick="getDistances()">Get Distance</button>
+		</div>
+	</div>
+
+	<div id="resultsSection">
+	<div class="row">
+		<div class="col-md-2">
+			<p></p>
+			<h3 id="detailsMessage"></h3>
+		</div>
+	</div>
+	<div class="row">
+			<label id="from"></label>
+	</div>
+	<div id = "flags" class="row" >
+		<div class="col-md-2">
+			<label id="from_flag"></label>
+		</div>
+		<div class="col-md-3">
+			<label id="to_flag"></label>
+		</div>
+
+			<!--p id="info11" style="font-size:18px;"></p-->
+			<h3 id="distanceInfo"></h3>
+
+
+			<h3 id="timeInfo"></h3>
+
+	</div>
+	</div>
+
+
+</div>
+<!-- wrapper div.container -->
+
+<!-- jQuery Javascript Library (required by Bootstrap) -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<script src="./index.js"></script>
+
+</body>
+</html>
